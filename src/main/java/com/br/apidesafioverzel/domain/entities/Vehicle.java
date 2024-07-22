@@ -1,39 +1,36 @@
-package com.br.apidesafioverzel.application.dto;
+package com.br.apidesafioverzel.domain.entities;
 
-import com.br.apidesafioverzel.domain.entities.Brand;
-import com.br.apidesafioverzel.domain.entities.Vehicle;
 
-public class VeiculoDTO {
+import jakarta.persistence.*;
 
+@Entity
+@Table(name = "tb_vehicles")
+public class Vehicle {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private Brand brand;
     private String model;
     private String description;
     private String imgUrl;
     private Integer year;
     private Double price;
 
-    public VeiculoDTO(Long id, String name, Brand brand, String model, String description, String imgUrl, Integer year, Double price) {
+    private Brand brand;
+
+    public Vehicle() {
+    }
+
+    public Vehicle(Long id, String name, String model, String description, String imgUrl, Integer year, Double price, Brand brand) {
         this.id = id;
         this.name = name;
-        this.brand = brand;
         this.model = model;
         this.description = description;
         this.imgUrl = imgUrl;
         this.year = year;
         this.price = price;
-    }
-
-    public VeiculoDTO(Vehicle vehicle){
-        this.id = vehicle.getId();
-        this.name = vehicle.getName();
-        this.brand = vehicle.getBrand();
-        this.model = vehicle.getModel();
-        this.description = vehicle.getDescription();
-        this.imgUrl = vehicle.getImgUrl();
-        this.year = vehicle.getYear();
-        this.price = vehicle.getPrice();
+        this.brand = brand;
     }
 
     public Long getId() {
@@ -50,14 +47,6 @@ public class VeiculoDTO {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Brand getBrand() {
-        return brand;
-    }
-
-    public void setBrand(Brand brand) {
-        this.brand = brand;
     }
 
     public String getModel() {
@@ -98,5 +87,13 @@ public class VeiculoDTO {
 
     public void setPrice(Double price) {
         this.price = price;
+    }
+
+    public Brand getBrand() {
+        return brand;
+    }
+
+    public void setBrand(Brand brand) {
+        this.brand = brand;
     }
 }

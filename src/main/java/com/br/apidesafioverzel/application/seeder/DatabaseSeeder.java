@@ -32,7 +32,7 @@ public class DatabaseSeeder implements CommandLineRunner {
         Faker faker = new Faker();
 
         // Create and save users
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 7; i++) {
             java.util.Date date = faker.date().birthday();
             java.time.LocalDate localDate = date.toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate();
             User user = new User(null, faker.name().firstName(), faker.internet().emailAddress(), faker.internet().password(),localDate);
@@ -40,17 +40,15 @@ public class DatabaseSeeder implements CommandLineRunner {
         }
 
         // Create and save brands
-        for (int i = 0; i < 1; i++) {
-            Brand brand = new Brand(null, faker.company().name());
-            brandRepository.save(brand);
-        }
+        Brand brand1 = new Brand(null, "Volks");
+        brandRepository.save(brand1);
 
         // Create and save cars
         List<Brand> brands = brandRepository.findAll();
         for (int i = 0; i < 5; i++) {
             Brand brand = brands.get(faker.random().nextInt(brands.size()));
-            Car car = new Car(null, faker.name().firstName(), brand, faker.lorem().sentence(), faker.internet().image(), faker.number().numberBetween(2000, 2023), faker.number().randomDouble(2, 10000, 50000));
-            carRepository.save(car);
+            Car car1 = new Car(null, "Uno", brand, "Teste de criação", faker.internet().image(), faker.number().numberBetween(1980, 2023), faker.number().randomDouble(2, 10000, 50000));
+            carRepository.save(car1);
         }
     }
 }

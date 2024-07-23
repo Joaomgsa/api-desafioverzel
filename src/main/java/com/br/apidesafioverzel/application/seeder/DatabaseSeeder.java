@@ -47,12 +47,11 @@ public class DatabaseSeeder implements CommandLineRunner {
 
         // Create and save cars
         List<Brand> brands = brandRepository.findAll();
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 50; i++) {
             Brand brand = brands.get(faker.random().nextInt(brands.size()));
-            Car car1 = new Car(null, "Uno", brand, "Seminovo", faker.internet().image(), faker.number().numberBetween(1980, 2023), faker.number().randomDouble(2, 10000, 50000));
-            Car car2 = new Car(null, "XC40", brand, "Seminovo", faker.internet().image(), faker.number().numberBetween(1980, 2023), faker.number().randomDouble(2, 10000, 50000));
-            carRepository.save(car1);
-            carRepository.save(car2);
+            Car car = new Car(null, faker.superhero().name(), brand, "Seminovo", faker.internet().image(), faker.number().numberBetween(1980, 2023), faker.number().randomDouble(2, 10000, 50000));
+            carRepository.save(car);
+
         }
     }
 }

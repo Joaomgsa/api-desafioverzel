@@ -9,7 +9,7 @@ public class CarDTO {
     private Long id;
     @NotBlank(message = "Nome é obrigatório")
     private String name;
-    private String brand;
+    private Brand brand;
     private String description;
     private String imgUrl;
     @Positive(message = "Ano deve estar no formato YYYY e ser maior que zero")
@@ -17,7 +17,7 @@ public class CarDTO {
     @Positive(message = "Preço deve ser maior que zero")
     private Double price;
 
-    public CarDTO(Long id, String name, String brand, String description, String imgUrl, Integer year, Double price) {
+    public CarDTO(Long id, String name, Brand brand, String description, String imgUrl, Integer year, Double price) {
         this.id = id;
         this.name = name;
         this.brand = brand;
@@ -30,7 +30,7 @@ public class CarDTO {
     public CarDTO(Car car){
         this.id = car.getId();
         this.name = car.getName();
-        this.brand = car.getBrand().getName();
+        this.brand = car.getBrand();
         this.description = car.getDescription();
         this.imgUrl = car.getImgUrl();
         this.year = car.getYear();
@@ -53,11 +53,11 @@ public class CarDTO {
         this.name = name;
     }
 
-    public String getBrand() {
+    public Brand getBrand() {
         return brand;
     }
 
-    public void setBrand(String brand) {
+    public void setBrand(Brand brand) {
         this.brand = brand;
     }
 

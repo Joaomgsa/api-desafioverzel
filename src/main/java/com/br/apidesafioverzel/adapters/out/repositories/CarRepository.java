@@ -22,4 +22,6 @@ public interface CarRepository extends JpaRepository<Car, Long>
             "FROM Car c JOIN c.brand b " +
             "ORDER BY c.year DESC")
     Page<Car> findAllOrderedByYear(Pageable pageable);
+
+
 }

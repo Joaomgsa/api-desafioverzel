@@ -1,6 +1,7 @@
 package com.br.apidesafioverzel.adapters.in.controllers;
 
 import com.br.apidesafioverzel.application.dto.CarDTO;
+import com.br.apidesafioverzel.application.dto.CarMinDTO;
 import com.br.apidesafioverzel.application.services.CarService;
 import com.br.apidesafioverzel.domain.entities.Car;
 import jakarta.validation.Valid;
@@ -25,8 +26,8 @@ public class CarController {
         this.carService = carService;
     }
 
-    @GetMapping("/")
-    public ResponseEntity<Page<CarDTO>> findAll(Pageable pageable) {
+    @GetMapping
+    public ResponseEntity<Page<CarMinDTO>> findAll(Pageable pageable) {
         return ResponseEntity.ok(carService.findAllOrderedByYear(pageable));
     }
 

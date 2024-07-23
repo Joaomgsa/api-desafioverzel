@@ -2,6 +2,7 @@ package com.br.apidesafioverzel.application.services;
 
 import com.br.apidesafioverzel.adapters.out.repositories.CarRepository;
 import com.br.apidesafioverzel.application.dto.CarDTO;
+import com.br.apidesafioverzel.application.dto.CarMinDTO;
 import com.br.apidesafioverzel.domain.entities.Car;
 import org.springframework.data.domain.Page;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,10 +29,10 @@ public class CarService {
         return result.map(CarDTO::new);
     }
 
-    @Transactional
-    public Page<CarDTO> findAllOrderedByYear(Pageable pageable) {
+    @Transactional(readOnly = true)
+    public Page<CarMinDTO> findAllOrderedByYear(Pageable pageable) {
         Page<Car> result = carRepository.findAll(pageable);
-        return result.map(CarDTO::new);
+        return result.map(x-> new CarMinDTO(x));
     }
 
     @Transactional

@@ -40,7 +40,7 @@ public class DatabaseSeeder implements CommandLineRunner {
         }
 
         // Create and save brands
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < 1; i++) {
             Brand brand = new Brand(null, faker.company().name());
             brandRepository.save(brand);
         }

@@ -18,6 +18,8 @@ public interface CarRepository extends JpaRepository<Car, Long>
     @Query("SELECT c FROM Car c WHERE UPPER(c.name) LIKE UPPER(CONCAT('%', :name, '%'))")
     Page<Car> findByNameContaining(String name, Pageable pageable);
 
-    @Query("SELECT c FROM Car c ORDER BY c.year")
+    @Query("SELECT c.id, c.name, b.name, c.description, c.imgUrl, c.year, c.price " +
+            "FROM Car c JOIN c.brand b " +
+            "ORDER BY c.year DESC")
     Page<Car> findAllOrderedByYear(Pageable pageable);
 }

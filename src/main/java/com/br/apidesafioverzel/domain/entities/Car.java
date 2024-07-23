@@ -10,16 +10,18 @@ public class Car {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private String brand;
     private String description;
     private String imgUrl;
     private Integer year;
     private Double price;
 
+    @ManyToOne
+    @JoinColumn(name = "brand_id")
+    private Brand brand;
     public Car() {
     }
 
-    public Car(Long id, String name, String brand, String description, String imgUrl, Integer year, Double price) {
+    public Car(Long id, String name, Brand brand, String description, String imgUrl, Integer year, Double price) {
         this.id = id;
         this.name = name;
         this.brand = brand;
@@ -53,13 +55,6 @@ public class Car {
         this.name = name;
     }
 
-    public String getBrand() {
-        return brand;
-    }
-
-    public void setBrand(String brand) {
-        this.brand = brand;
-    }
 
     public String getImgUrl() {
         return imgUrl;
@@ -83,5 +78,13 @@ public class Car {
 
     public void setPrice(Double price) {
         this.price = price;
+    }
+
+    public Brand getBrand() {
+        return brand;
+    }
+
+    public void setBrand(Brand brand) {
+        this.brand = brand;
     }
 }

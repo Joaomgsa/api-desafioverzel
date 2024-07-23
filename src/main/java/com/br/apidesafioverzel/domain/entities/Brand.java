@@ -2,7 +2,8 @@ package com.br.apidesafioverzel.domain.entities;
 
 
 import jakarta.persistence.*;
-import java.util.List;
+
+import java.util.Set;
 
 
 @Entity
@@ -17,7 +18,7 @@ public class Brand {
     private String name;
 
     @OneToMany(mappedBy = "brand")
-    private List<Vehicle> vehicles;
+    private Set<Car> cars;
     public Brand() {
     }
 
@@ -42,11 +43,11 @@ public class Brand {
         this.name = name;
     }
 
-    public List<Vehicle> getVehicles() {
-        return vehicles;
+    public Set<Car> getVehicles() {
+        return cars;
     }
 
-    public void setVehicles(List<Vehicle> vehicle) {
-        this.vehicles = vehicle;
+    public void setVehicles(Set<Car> cars) {
+        this.cars = cars;
     }
 }

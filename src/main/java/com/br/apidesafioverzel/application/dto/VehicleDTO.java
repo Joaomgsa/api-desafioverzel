@@ -3,7 +3,7 @@ package com.br.apidesafioverzel.application.dto;
 import com.br.apidesafioverzel.domain.entities.Brand;
 import com.br.apidesafioverzel.domain.entities.Vehicle;
 
-public class VeiculoDTO {
+public class VehicleDTO {
 
     private Long id;
     private String name;
@@ -14,7 +14,7 @@ public class VeiculoDTO {
     private Integer year;
     private Double price;
 
-    public VeiculoDTO(Long id, String name, Brand brand, String model, String description, String imgUrl, Integer year, Double price) {
+    public VehicleDTO(Long id, String name, Brand brand, String model, String description, String imgUrl, Integer year, Double price) {
         this.id = id;
         this.name = name;
         this.brand = brand;
@@ -25,7 +25,7 @@ public class VeiculoDTO {
         this.price = price;
     }
 
-    public VeiculoDTO(Vehicle vehicle){
+    public VehicleDTO(Vehicle vehicle){
         this.id = vehicle.getId();
         this.name = vehicle.getName();
         this.brand = vehicle.getBrand();

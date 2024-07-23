@@ -10,28 +10,22 @@ public class Vehicle {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(nullable = false)
     private String name;
+    @Column(nullable = false)
     private String model;
+    @Column
     private String description;
+    @Column
     private String imgUrl;
+    @Column
     private Integer year;
+    @Column(nullable = false)
     private Double price;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "brand_id")
     private Brand brand;
-
-    public Vehicle() {
-    }
-
-    public Vehicle(Long id, String name, String model, String description, String imgUrl, Integer year, Double price, Brand brand) {
-        this.id = id;
-        this.name = name;
-        this.model = model;
-        this.description = description;
-        this.imgUrl = imgUrl;
-        this.year = year;
-        this.price = price;
-        this.brand = brand;
-    }
 
     public Long getId() {
         return id;

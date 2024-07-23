@@ -9,7 +9,4 @@ public interface BrandRepository extends JpaRepository<Brand, Long> {
 
     Brand findByName(String name);
 
-    boolean existsByName(String name);
-
-    List<Brand> findByNameContaining(String name);
 }

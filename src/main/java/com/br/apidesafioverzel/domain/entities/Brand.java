@@ -1,23 +1,23 @@
 package com.br.apidesafioverzel.domain.entities;
 
-import jakarta.persistence.*;
 
-import java.util.ArrayList;
+import jakarta.persistence.*;
 import java.util.List;
-import java.util.Set;
+
 
 @Entity
 @Table(name = "tb_brands")
 public class Brand {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
     private Long id;
+
+    @Column(nullable = false)
     private String name;
 
-    @OneToMany(mappedBy = "brand", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Car> cars = new ArrayList<>();
-
+    @OneToMany(mappedBy = "brand")
+    private List<Vehicle> vehicles;
     public Brand() {
     }
 
@@ -42,13 +42,11 @@ public class Brand {
         this.name = name;
     }
 
-
-    public List<Car> getCars() {
-        return cars;
+    public List<Vehicle> getVehicles() {
+        return vehicles;
     }
 
-    public void setCars(List<Car> cars) {
-        this.cars = cars;
+    public void setVehicles(List<Vehicle> vehicle) {
+        this.vehicles = vehicle;
     }
-
 }

@@ -1,18 +1,11 @@
 package com.br.apidesafioverzel.application.services;
 
-
 import com.br.apidesafioverzel.adapters.out.repositories.BrandRepository;
-import com.br.apidesafioverzel.application.dto.BrandDTO;
 import com.br.apidesafioverzel.domain.entities.Brand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
-
-
-    //TODO : Implementar o tratamento de exceções
+// TODO: Implementar validações de negócio
 @Service
 public class BrandService {
 
@@ -23,19 +16,19 @@ public class BrandService {
         this.brandRepository = brandRepository;
     }
 
-    @Transactional
-    public List<BrandDTO> findByName(String name){
-        List<Brand> brands = new ArrayList<>();
-        List<BrandDTO> brandDTOs = new ArrayList<>();
-        for (Brand brand : brandRepository.findByNameContaining(name)) {
-            brands.add(brand);
-            brandDTOs.add(new BrandDTO(brand));
-        }
-        return brandDTOs;
+    public Brand findByName(String name) {
+        return brandRepository.findByName(name);
     }
 
-    private void copyDTOToEntity(BrandDTO brandDTO, Brand brand){
-        brand.setId(brandDTO.getId());
-        brand.setName(brandDTO.getName());
+    public Brand save(Brand brand) {
+        return brandRepository.save(brand);
+    }
+
+    public Brand findById(Long id) {
+        return brandRepository.findById(id).orElse(null);
+    }
+
+    public void delete(Long id) {
+        brandRepository.deleteById(id);
     }
 }

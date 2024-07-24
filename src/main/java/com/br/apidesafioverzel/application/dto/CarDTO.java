@@ -1,36 +1,40 @@
-package com.br.apidesafioverzel.domain.entities;
+package com.br.apidesafioverzel.application.dto;
 
+import com.br.apidesafioverzel.domain.entities.Brand;
+import com.br.apidesafioverzel.domain.entities.Car;
+import jakarta.validation.constraints.*;
 
-import jakarta.persistence.*;
+public class CarDTO {
 
-@Entity
-@Table(name = "tb_vehicles")
-public class Vehicle {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotBlank(message = "Nome é obrigatório")
     private String name;
-    private String model;
+    private Brand brand;
     private String description;
     private String imgUrl;
+    @Positive(message = "Ano deve estar no formato YYYY e ser maior que zero")
     private Integer year;
+    @Positive(message = "Preço deve ser maior que zero")
     private Double price;
 
-    private Brand brand;
-
-    public Vehicle() {
-    }
-
-    public Vehicle(Long id, String name, String model, String description, String imgUrl, Integer year, Double price, Brand brand) {
+    public CarDTO(Long id, String name, Brand brand, String description, String imgUrl, Integer year, Double price) {
         this.id = id;
         this.name = name;
-        this.model = model;
+        this.brand = brand;
         this.description = description;
         this.imgUrl = imgUrl;
         this.year = year;
         this.price = price;
-        this.brand = brand;
+    }
+
+    public CarDTO(Car car){
+        this.id = car.getId();
+        this.name = car.getName();
+        this.brand = car.getBrand();
+        this.description = car.getDescription();
+        this.imgUrl = car.getImgUrl();
+        this.year = car.getYear();
+        this.price = car.getPrice();
     }
 
     public Long getId() {
@@ -49,12 +53,12 @@ public class Vehicle {
         this.name = name;
     }
 
-    public String getModel() {
-        return model;
+    public Brand getBrand() {
+        return brand;
     }
 
-    public void setModel(String model) {
-        this.model = model;
+    public void setBrand(Brand brand) {
+        this.brand = brand;
     }
 
     public String getDescription() {
@@ -87,13 +91,5 @@ public class Vehicle {
 
     public void setPrice(Double price) {
         this.price = price;
-    }
-
-    public Brand getBrand() {
-        return brand;
-    }
-
-    public void setBrand(Brand brand) {
-        this.brand = brand;
     }
 }

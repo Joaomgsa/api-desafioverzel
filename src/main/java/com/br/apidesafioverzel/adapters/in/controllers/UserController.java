@@ -21,7 +21,7 @@ public class UserController {
     public void save(@RequestBody UserDTO userDTO) {
         User user = new User();
         user.setId(userDTO.getId());
-        user.setName(userDTO.getName());
+        user.setUsername(userDTO.getUserName());
         user.setEmail(userDTO.getEmail());
         user.setBirthDate(userDTO.getBirthDate());
         userService.save(user);

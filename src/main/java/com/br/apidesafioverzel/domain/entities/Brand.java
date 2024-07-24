@@ -1,13 +1,10 @@
 package com.br.apidesafioverzel.domain.entities;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
-import java.util.HashSet;
 import java.util.Set;
+
 
 @Entity
 @Table(name = "tb_brands")
@@ -16,9 +13,12 @@ public class Brand {
     @Id
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
     private Long id;
+
+    @Column(nullable = false)
     private String name;
 
-    private Set<Vehicle> veiculos = new HashSet<>();
+    @OneToMany(mappedBy = "brand")
+    private Set<Car> cars;
     public Brand() {
     }
 
@@ -43,7 +43,11 @@ public class Brand {
         this.name = name;
     }
 
-    public Set<Vehicle> getVeiculos() {
-        return veiculos;
+    public Set<Car> getVehicles() {
+        return cars;
+    }
+
+    public void setVehicles(Set<Car> cars) {
+        this.cars = cars;
     }
 }

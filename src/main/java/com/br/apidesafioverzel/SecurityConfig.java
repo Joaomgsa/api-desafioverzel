@@ -48,11 +48,6 @@ public class SecurityConfig {
     }
 
     @Bean
-    PasswordEncoder passwordEncoder(){
-        return new BCryptPasswordEncoder();
-    }
-
-    @Bean
     JwtDecoder jwtDecoder(){
         return NimbusJwtDecoder.withPublicKey(this.key).build();
     }
@@ -64,5 +59,9 @@ public class SecurityConfig {
         return new NimbusJwtEncoder(jwkSource);
     }
 
+    @Bean
+    PasswordEncoder passwordEncoder(){
+        return new BCryptPasswordEncoder();
+    }
 
 }

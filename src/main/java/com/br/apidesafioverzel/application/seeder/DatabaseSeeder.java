@@ -39,6 +39,9 @@ public class DatabaseSeeder implements CommandLineRunner {
             userRepository.save(user);
         }
 
+        User meuUser = new User(null, "admin", faker.internet().emailAddress(), "admin", java.time.LocalDate.now());
+        userRepository.save(meuUser);
+
         // Create and save brands
         Brand brand1 = new Brand(null, "Volkwagen");
         Brand brand2 = new Brand(null, "Volvo");

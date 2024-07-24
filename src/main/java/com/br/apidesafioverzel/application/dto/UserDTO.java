@@ -7,20 +7,20 @@ import java.time.LocalDate;
 public class UserDTO {
 
     private Long id;
-    private String name;
+    private String userName;
     private String email;
     private LocalDate birthDate;
 
-    public UserDTO(Long id, String name, String email, String phone, LocalDate birthDate) {
+    public UserDTO(Long id, String userName, String email, String phone, LocalDate birthDate) {
         this.id = id;
-        this.name = name;
+        this.userName = userName;
         this.email = email;
         this.birthDate = birthDate;
     }
 
     public UserDTO(User user) {
         this.id = user.getId();
-        this.name = user.getName();
+        this.userName = user.getUsername();
         this.email = user.getEmail();
         this.birthDate = user.getBirthDate();
     }
@@ -29,8 +29,8 @@ public class UserDTO {
         return id;
     }
 
-    public String getName() {
-        return name;
+    public String getUserName() {
+        return userName;
     }
 
     public String getEmail() {

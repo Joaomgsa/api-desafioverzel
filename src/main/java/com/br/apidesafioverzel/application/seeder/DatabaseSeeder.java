@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Component
@@ -42,13 +43,14 @@ public class DatabaseSeeder implements CommandLineRunner {
         User meuUser = new User(null, "admin", faker.internet().emailAddress(), "admin", java.time.LocalDate.now());
         userRepository.save(meuUser);
 
-        // Create and save brands
-        Brand brand1 = new Brand(null, "Volkwagen");
-        Brand brand2 = new Brand(null, "Peugeot");
-        brandRepository.save(brand1);
-        brandRepository.save(brand2);
+        List<String> brandNames = Arrays.asList("Chevrolet", "Volkswagen", "Fiat", "Renault", "Ford", "Toyota", "Hyundai", "Jeep", "Honda", "Nissan");
+        for (String brandName : brandNames) {
+            Brand brand = new Brand();
+            brand.setName(brandName);
+            brandRepository.save(brand);
+        }
 
-        // Create and save cars
+
         List<Brand> brands = brandRepository.findAll();
         for (int i = 0; i < 10; i++) {
             Brand brand = brands.get(faker.random().nextInt(brands.size()));

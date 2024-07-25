@@ -1,10 +1,12 @@
 package com.br.apidesafioverzel.application.services;
 
+import com.br.apidesafioverzel.adapters.out.repositories.BrandRepository;
 import com.br.apidesafioverzel.adapters.out.repositories.CarRepository;
 import com.br.apidesafioverzel.application.dto.CarDTO;
 import com.br.apidesafioverzel.application.dto.CarMinDTO;
 import com.br.apidesafioverzel.application.services.exceptions.DatabaseException;
 import com.br.apidesafioverzel.application.services.exceptions.ResourceNotFoundException;
+import com.br.apidesafioverzel.domain.entities.Brand;
 import com.br.apidesafioverzel.domain.entities.Car;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -23,6 +25,8 @@ public class CarService {
 
     @Autowired
     private CarRepository carRepository;
+    @Autowired
+    BrandRepository brandRepository;
 
     public CarService(CarRepository carRepository) {
         this.carRepository = carRepository;
@@ -44,6 +48,12 @@ public class CarService {
     @Transactional
     public CarDTO insert(CarDTO carDTO){
         Car car = new Car();
+        Brand brand = carDTO.getBrand();
+        if (brand != null) {
+            // Save the brand before saving the car
+            brand = brandRepository.save(brand);
+            car.setBrand(brand);
+        }
         copyDTOToEntity(carDTO, car);
         car = carRepository.save(car);
         return new CarDTO(car);

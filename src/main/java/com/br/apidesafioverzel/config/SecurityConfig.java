@@ -40,9 +40,10 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(HttpMethod.POST, "/users").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/users").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/carros").permitAll()
                         .requestMatchers(HttpMethod.POST, "/login").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/carros").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/carros").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/brands").permitAll()
                         .anyRequest().authenticated())
                 .csrf(csrf -> csrf.disable())
                 .oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()))

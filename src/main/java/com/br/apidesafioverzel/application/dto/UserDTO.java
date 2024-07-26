@@ -8,12 +8,14 @@ public class UserDTO {
 
     private Long id;
     private String userName;
+    private String password;
     private String email;
     private LocalDate birthDate;
 
-    public UserDTO(Long id, String userName, String email, String phone, LocalDate birthDate) {
+    public UserDTO(Long id, String userName,String password, String email, String phone, LocalDate birthDate) {
         this.id = id;
         this.userName = userName;
+        this.password = password;
         this.email = email;
         this.birthDate = birthDate;
     }
@@ -21,6 +23,7 @@ public class UserDTO {
     public UserDTO(User user) {
         this.id = user.getId();
         this.userName = user.getUsername();
+        this.password = user.getPassword();
         this.email = user.getEmail();
         this.birthDate = user.getBirthDate();
     }
@@ -41,4 +44,7 @@ public class UserDTO {
         return birthDate;
     }
 
+    public String getPassword() {
+        return password;
+    }
 }

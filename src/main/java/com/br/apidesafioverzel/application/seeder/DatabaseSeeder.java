@@ -2,9 +2,11 @@ package com.br.apidesafioverzel.application.seeder;
 
 import com.br.apidesafioverzel.adapters.out.repositories.BrandRepository;
 import com.br.apidesafioverzel.adapters.out.repositories.CarRepository;
+import com.br.apidesafioverzel.adapters.out.repositories.RoleRepository;
 import com.br.apidesafioverzel.adapters.out.repositories.UserRepository;
 import com.br.apidesafioverzel.domain.entities.Brand;
 import com.br.apidesafioverzel.domain.entities.Car;
+import com.br.apidesafioverzel.domain.entities.Role;
 import com.br.apidesafioverzel.domain.entities.User;
 import com.github.javafaker.Faker;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +14,9 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Component
 public class DatabaseSeeder implements CommandLineRunner {
@@ -20,28 +24,35 @@ public class DatabaseSeeder implements CommandLineRunner {
     private final UserRepository userRepository;
     private final CarRepository carRepository;
     private final BrandRepository brandRepository;
+    private final RoleRepository roleRepository;
 
     @Autowired
-    public DatabaseSeeder(UserRepository userRepository, CarRepository carRepository, BrandRepository brandRepository) {
+    public DatabaseSeeder(UserRepository userRepository, CarRepository carRepository, BrandRepository brandRepository, RoleRepository roleRepository) {
         this.userRepository = userRepository;
         this.carRepository = carRepository;
         this.brandRepository = brandRepository;
+        this.roleRepository = roleRepository;
     }
 
     @Override
     public void run(String... args) throws Exception {
         Faker faker = new Faker();
 
+        Role adminRole = new Role(1L, "ADMIN");
+        Role basicRole = new Role(2L, "BASIC");
+        roleRepository.save(adminRole);
+        roleRepository.save(basicRole);
+
+        var role = roleRepository.findByName(Role.Values.BASIC.name());
+
         // Create and save users
         for (int i = 0; i < 7; i++) {
             java.util.Date date = faker.date().birthday();
             java.time.LocalDate localDate = date.toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate();
-            User user = new User(null, faker.name().firstName(), faker.internet().emailAddress(), faker.internet().password(),localDate);
+            User user = new User(null, faker.name().firstName(), faker.internet().emailAddress(), faker.internet().password(),localDate, Set.of(role));
             userRepository.save(user);
         }
 
-        User meuUser = new User(null, "admin", faker.internet().emailAddress(), "admin", java.time.LocalDate.now());
-        userRepository.save(meuUser);
 
         List<String> brandNames = Arrays.asList("Chevrolet", "Volkswagen", "Fiat", "Renault", "Ford", "Toyota", "Hyundai", "Jeep", "Honda", "Nissan");
         for (String brandName : brandNames) {

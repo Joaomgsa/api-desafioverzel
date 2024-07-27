@@ -13,8 +13,7 @@ import java.util.stream.Collectors;
 @Service
 public class BrandService {
 
-    @Autowired
-    private BrandRepository brandRepository;
+    private final BrandRepository brandRepository;
 
     public BrandService(BrandRepository brandRepository) {
         this.brandRepository = brandRepository;

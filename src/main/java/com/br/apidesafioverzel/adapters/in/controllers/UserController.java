@@ -1,6 +1,7 @@
 package com.br.apidesafioverzel.adapters.in.controllers;
 
 import com.br.apidesafioverzel.application.dto.UserDTO;
+import com.br.apidesafioverzel.application.dto.UserStatusDTO;
 import com.br.apidesafioverzel.application.services.RoleService;
 import com.br.apidesafioverzel.application.services.UserService;
 import com.br.apidesafioverzel.domain.entities.User;
@@ -31,10 +32,11 @@ public class UserController {
     }
 
     @GetMapping("/me")
-    public ResponseEntity<Boolean> isAdmin(JwtAuthenticationToken token) {
+    public ResponseEntity<UserStatusDTO> isAdmin(JwtAuthenticationToken token) {
         var userauth = userService.findById(Long.parseLong(token.getToken().getSubject()));
         var isAdmin = userauth.getRoles().stream().anyMatch(role -> role.getName().equals("ADMIN"));
-        return ResponseEntity.ok(isAdmin);
+        var username = userauth.getUsername();
+        return ResponseEntity.ok(new UserStatusDTO(username, isAdmin));
     }
 
     @GetMapping

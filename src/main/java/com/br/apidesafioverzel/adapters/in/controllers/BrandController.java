@@ -15,8 +15,8 @@ import java.util.List;
 @RequestMapping("/brands")
 public class BrandController {
 
-    @Autowired
-    private BrandService brandService;
+
+    private final BrandService brandService;
 
     public BrandController(BrandService brandService) {
         this.brandService = brandService;

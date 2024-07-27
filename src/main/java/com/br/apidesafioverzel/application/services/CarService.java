@@ -23,13 +23,13 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class CarService {
 
-    @Autowired
-    private CarRepository carRepository;
-    @Autowired
-    BrandRepository brandRepository;
 
-    public CarService(CarRepository carRepository) {
+    private final CarRepository carRepository;
+    private final BrandRepository brandRepository;
+
+    public CarService(CarRepository carRepository, BrandRepository brandRepository) {
         this.carRepository = carRepository;
+        this.brandRepository = brandRepository;
     }
 
     // TODO: Implementar as exceções de regras de negócio

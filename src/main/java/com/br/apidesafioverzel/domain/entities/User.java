@@ -1,6 +1,7 @@
 package com.br.apidesafioverzel.domain.entities;
 
-import com.br.apidesafioverzel.application.dto.LoginRequest;
+
+import com.br.apidesafioverzel.application.dto.LoginRequestDTO;
 import jakarta.persistence.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -100,7 +101,7 @@ public class User {
     }
 
 
-    public boolean isLoginCorrect(LoginRequest loginRequest, PasswordEncoder passwordEncoder) {
+    public boolean isLoginCorrect(LoginRequestDTO loginRequest, PasswordEncoder passwordEncoder) {
         return passwordEncoder.matches(loginRequest.password(), this.password);
     }
 }

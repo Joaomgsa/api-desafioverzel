@@ -9,6 +9,7 @@ public class CarDTO {
     private Long id;
     @NotBlank(message = "Nome é obrigatório")
     private String name;
+    @NotBlank(message = "Marca é obrigatória")
     private Brand brand;
     private String description;
     private String imgUrl;

@@ -45,6 +45,12 @@ public class CarService {
         return result.map(x-> new CarMinDTO(x));
     }
 
+    public CarDTO findById(Long id) {
+        Car car = carRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Recurso não encontrado"));
+        return new CarDTO(car);
+    }
+
     @Transactional
     public CarDTO insert(CarDTO carDTO){
         Car car = new Car();
@@ -60,15 +66,20 @@ public class CarService {
     }
 
     @Transactional
-    public CarDTO update(Long id, CarDTO carDTO){
-        try {
-            Car car = carRepository.getReferenceById(id);
-            copyDTOToEntity(carDTO, car);
-            car = carRepository.save(car);
-            return new CarDTO(car);
-        } catch (EntityNotFoundException e) {
-            throw new ResourceNotFoundException("Recurso não encontrado");
+    public CarDTO update(Long id, CarDTO carDTO) {
+        Car car = carRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Car not found"));
+        Brand brand = carDTO.getBrand();
+        if (brand.getId() == null) {
+            brand = brandRepository.save(brand);
         }
+        car.setName(carDTO.getName());
+        car.setBrand(brand);
+        car.setDescription(carDTO.getDescription());
+        car.setImgUrl(carDTO.getImgUrl());
+        car.setYear(carDTO.getYear());
+        car.setPrice(carDTO.getPrice());
+        car = carRepository.save(car);
+        return new CarDTO(car);
     }
 
     @Transactional(propagation = Propagation.SUPPORTS)

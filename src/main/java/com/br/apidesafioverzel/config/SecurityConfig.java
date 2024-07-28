@@ -44,6 +44,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/carros").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.GET, "/users").permitAll()
                         .requestMatchers(HttpMethod.GET, "/carros").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/carros/*").permitAll()
                         .requestMatchers(HttpMethod.GET, "/brands").permitAll()
                         .anyRequest().authenticated())
                 .csrf(csrf -> csrf.disable())

@@ -35,6 +35,11 @@ public class CarController {
         return ResponseEntity.ok(carService.findAllOrderedByYear(pageable));
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<CarDTO> findById(@PathVariable Long id) {
+        return ResponseEntity.ok(carService.findById(id));
+    }
+
     @GetMapping("/name/{name}")
     public ResponseEntity<Page<CarDTO>> findAll(
             @RequestParam(name = "name", required = false, defaultValue = "") String name,
@@ -58,6 +63,19 @@ public class CarController {
             return ResponseEntity.created(uri).body(carDTO);
         }
 
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<CarDTO> update(@PathVariable Long id, @Valid @RequestBody CarDTO carDTO, JwtAuthenticationToken token) {
+        var user = userService.findById(Long.parseLong(token.getToken().getSubject()));
+        var isAdmin = user.getRoles().stream().anyMatch(role -> role.getName().equals("ADMIN"));
+
+        if (!isAdmin) {
+            return ResponseEntity.status(403).build();
+        } else {
+            carDTO = carService.update(id, carDTO);
+            return ResponseEntity.ok(carDTO);
+        }
     }
 
     @DeleteMapping("/{id}")

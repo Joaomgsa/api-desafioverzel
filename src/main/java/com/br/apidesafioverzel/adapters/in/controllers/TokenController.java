@@ -1,8 +1,8 @@
 package com.br.apidesafioverzel.adapters.in.controllers;
 
 import com.br.apidesafioverzel.adapters.out.repositories.UserRepository;
-import com.br.apidesafioverzel.application.dto.LoginRequest;
-import com.br.apidesafioverzel.application.dto.LoginResponse;
+import com.br.apidesafioverzel.application.dto.LoginRequestDTO;
+import com.br.apidesafioverzel.application.dto.LoginResponseDTO;
 import com.br.apidesafioverzel.domain.entities.Role;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -32,7 +32,7 @@ public class TokenController {
     }
 
     @PostMapping
-    public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest loginRequest) {
+    public ResponseEntity<LoginResponseDTO> login(@RequestBody LoginRequestDTO loginRequest) {
 
         var user = userRepository.findByUsername(loginRequest.username());
 
@@ -58,6 +58,6 @@ public class TokenController {
 
         var jwtValue = jwtEncoder.encode(JwtEncoderParameters.from(claims)).getTokenValue();
 
-        return ResponseEntity.ok(new LoginResponse(jwtValue, expiresIn));
+        return ResponseEntity.ok(new LoginResponseDTO(jwtValue, expiresIn));
     }
 }

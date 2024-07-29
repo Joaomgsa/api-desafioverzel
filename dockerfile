@@ -5,10 +5,11 @@ FROM openjdk:21-jdk-slim
 WORKDIR /app
 
 # Copie o arquivo JAR da aplicação para o contêiner
-COPY target/api-desafio-verzel.jar /app/api-desafio-verzel.jar
+COPY target/api-desafioverzel-0.0.1-SNAPSHOT.jar /app/api-desafioverzel-0.0.1-SNAPSHOT.jar
 
-# Exponha a porta em que a aplicação será executada
+
+# Porta em que a aplicação será executada
 EXPOSE 8080
 
 # Comando para executar a aplicação
-CMD ["java", "-jar", "/app/api-desafio-verzel.jar"]
+CMD ["java", "-jar", "/app/api-desafioverzel-0.0.1-SNAPSHOT.jar"]

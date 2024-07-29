@@ -45,10 +45,10 @@ public class CarService {
         return result.map(x-> new CarMinDTO(x));
     }
 
-    public CarDTO findById(Long id) {
+    public CarMinDTO findById(Long id) {
         Car car = carRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Recurso não encontrado"));
-        return new CarDTO(car);
+        return new CarMinDTO(car);
     }
 
     @Transactional

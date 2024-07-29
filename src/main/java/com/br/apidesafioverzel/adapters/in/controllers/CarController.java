@@ -36,7 +36,7 @@ public class CarController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<CarDTO> findById(@PathVariable Long id) {
+    public ResponseEntity<CarMinDTO> findById(@PathVariable Long id) {
         return ResponseEntity.ok(carService.findById(id));
     }
 
@@ -53,14 +53,16 @@ public class CarController {
 
         var user = userService.findById(Long.parseLong(token.getToken().getSubject()));
         var isAdmin = user.getRoles().stream().anyMatch(role -> role.getName().equals("ADMIN"));
+        System.out.println("##### EH ADMIN:  "+isAdmin+"###########");
+
 
         if (!isAdmin) {
             return ResponseEntity.status(403).build();
         } else {
             carDTO = carService.insert(carDTO);
-            URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-                    .buildAndExpand(carDTO.getId()).toUri();
-            return ResponseEntity.created(uri).body(carDTO);
+             URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+                .buildAndExpand(carDTO.getId()).toUri();
+        return ResponseEntity.created(uri).body(carDTO);
         }
 
     }

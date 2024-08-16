@@ -30,4 +30,4 @@ Cliente de uma aplicação de venda de carros
 
   Navegar até o repositorio raiz do projeto e rodar o comando :
     docker compose up --build -d
-  porta 8080
+  porta : 8080 
